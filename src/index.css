@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-50: #E3F2FD;
+  --primary-100: #BBDEFB;
+  --primary-200: #90CAF9;
+  --primary-300: #64B5F6;
+  --primary-400: #42A5F5;
+  --primary-500: #2196F3;
+  --primary-600: #1E88E5;
+  --primary-700: #1976D2;
+  --primary-800: #1565C0;
+  --primary-900: #0D47A1;
+  
+  --accent-50: #F3E5F5;
+  --accent-100: #E1BEE7;
+  --accent-200: #CE93D8;
+  --accent-300: #BA68C8;
+  --accent-400: #AB47BC;
+  --accent-500: #9C27B0;
+  --accent-600: #8E24AA;
+  --accent-700: #7B1FA2;
+  --accent-800: #6A1B9A;
+  --accent-900: #4A148C;
+  
+  --success-50: #E8F5E9;
+  --success-500: #4CAF50;
+  --success-900: #1B5E20;
+  
+  --warning-50: #FFF8E1;
+  --warning-500: #FFC107;
+  --warning-900: #FF6F00;
+  
+  --error-50: #FFEBEE;
+  --error-500: #F44336;
+  --error-900: #B71C1C;
+  
+  --neutral-50: #FAFAFA;
+  --neutral-100: #F5F5F5;
+  --neutral-200: #EEEEEE;
+  --neutral-300: #E0E0E0;
+  --neutral-400: #BDBDBD;
+  --neutral-500: #9E9E9E;
+  --neutral-600: #757575;
+  --neutral-700: #616161;
+  --neutral-800: #424242;
+  --neutral-900: #212121;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  @apply bg-neutral-50 text-neutral-900;
+}
+
+.card-hover {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px -10px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom progress bar styling */
+.progress-bar {
+  @apply h-2 rounded-full overflow-hidden bg-neutral-200;
+}
+
+.progress-bar-inner {
+  @apply h-full transition-all duration-300 ease-out;
+}
+
+/* Custom animation classes */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

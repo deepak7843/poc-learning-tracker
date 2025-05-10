@@ -1,0 +1,68 @@
+import { TimelineEvent } from '../types';
+
+export const mockTimelineEvents: TimelineEvent[] = [
+  {
+    id: 't1',
+    userId: 'user1',
+    topicId: '1',
+    eventType: 'started',
+    eventDate: '2023-02-01T14:30:00+05:30',
+    details: 'Started learning React fundamentals',
+  },
+  {
+    id: 't2',
+    userId: 'user1',
+    topicId: '1',
+    eventType: 'milestone',
+    eventDate: '2023-02-08T20:00:00+05:30',
+    details: 'Completed first React component',
+  },
+  {
+    id: 't3',
+    userId: 'user1',
+    topicId: '1',
+    eventType: 'completed',
+    eventDate: '2023-02-15T20:00:00+05:30',
+    details: 'Completed React fundamentals course',
+  },
+  {
+    id: 't4',
+    userId: 'user1',
+    topicId: '2',
+    eventType: 'started',
+    eventDate: '2023-03-10T15:45:00+05:30',
+    details: 'Started learning Advanced TypeScript',
+  },
+  {
+    id: 't5',
+    userId: 'user1',
+    topicId: '2',
+    eventType: 'milestone',
+    eventDate: '2023-04-05T21:50:00+05:30',
+    details: 'Completed module on Generic Types',
+  },
+  {
+    id: 't6',
+    userId: 'user1',
+    topicId: '3',
+    eventType: 'started',
+    eventDate: '2023-04-05T19:30:00+05:30',
+    details: 'Started Redux Toolkit course',
+  },
+  {
+    id: 't7',
+    userId: 'user1',
+    topicId: '5',
+    eventType: 'started',
+    eventDate: '2023-01-20T19:15:00+05:30',
+    details: 'Started learning Node.js Microservices',
+  },
+  {
+    id: 't8',
+    userId: 'user1',
+    topicId: '5',
+    eventType: 'milestone',
+    eventDate: '2023-03-15T17:00:00+05:30',
+    details: 'Built first microservice with Docker',
+  },
+];

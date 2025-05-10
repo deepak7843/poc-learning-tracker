@@ -1,0 +1,56 @@
+import { User } from "../types";
+
+export const mockUsers: User[] = [
+  {
+    id: 'user1',
+    name: 'Deepak Shankar Dubey',
+    email: 'deepakshankardubey123@gmail.com',
+    role: 'user',
+    avatarUrl: 'https://avatars.githubusercontent.com/u/97316457?v=4',
+    department: 'Engineering',
+    managerId: 'manager1',
+  },
+  {
+    id: 'manager1',
+    name: 'Varun Jain',
+    email: 'varun@example.com',
+    role: 'manager',
+    avatarUrl: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    department: 'Engineering',
+  },
+  {
+    id: 'teamlead1',
+    name: 'Sumanth',
+    email: 'sumanth@example.com',
+    role: 'team_lead',
+    avatarUrl: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    department: 'IT',
+    managerId: 'manager1',
+  },
+  {
+    id: 'user2',
+    name: 'Priya Patel',
+    email: 'priya@example.com',
+    role: 'user',
+    avatarUrl: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    department: 'Engineering',
+    managerId: 'manager1',
+  },
+  {
+    id: 'user3',
+    name: 'Aisha Khan',
+    email: 'aisha@example.com',
+    role: 'user',
+    avatarUrl: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    department: 'Engineering',
+    managerId: 'manager1',
+  },
+  {
+    id: 'admin1',
+    name: 'Suresh Sharma',
+    email: 'suresh@example.com',
+    role: 'admin',
+    avatarUrl: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    department: 'IT',
+  },
+];
