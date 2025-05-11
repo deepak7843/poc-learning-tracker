@@ -7,11 +7,20 @@ import { TimelineEvent, Topic } from '../../types';
 
 type ColorType = 'primary' | 'success' | 'warning' | 'neutral';
 
-const TimelineFeed: React.FC = () => {
+interface TimelineFeedProps {
+  userId?: string;
+}
+
+const TimelineFeed: React.FC<TimelineFeedProps> = ({ userId }) => {
   const { events } = useSelector((state: RootState) => state.timeline);
   const { topics } = useSelector((state: RootState) => state.topics);
   
-  const sortedEvents = [...events].sort(
+  // Filtering events for the specific user if userId is provided
+  const filteredEvents = userId 
+    ? events.filter(event => event.userId === userId)
+    : events;
+  
+  const sortedEvents = [...filteredEvents].sort(
     (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
   );
 
@@ -51,7 +60,7 @@ const TimelineFeed: React.FC = () => {
     }).format(date);
   };
 
-  
+  // here I am Grouping events by date using the date part only
   const groupedEvents = sortedEvents.reduce<Record<string, TimelineEvent[]>>((groups, event) => {
     const date = new Date(event.eventDate);
     const dateKey = date.toLocaleDateString('en-IN', {
@@ -67,14 +76,17 @@ const TimelineFeed: React.FC = () => {
     groups[dateKey].push(event);
     return groups;
   }, {});
-  
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-2">Learning Timeline</h1>
-      <p className="text-neutral-600 mb-6">
-        Track your progress and learning milestones over time
-      </p>
+      {!userId && (
+        <>
+          <h1 className="text-2xl font-bold mb-2">Learning Timeline</h1>
+          <p className="text-neutral-600 mb-6">
+            Track your progress and learning milestones over time
+          </p>
+        </>
+      )}
 
       <div className="bg-white rounded-lg shadow-sm p-6">
         {Object.keys(groupedEvents).length > 0 ? (
@@ -148,7 +160,7 @@ const TimelineFeed: React.FC = () => {
               No timeline events yet
             </p>
             <p className="text-neutral-600 text-center">
-              Start learning topics to build your timeline
+              {userId ? 'This employee hasn\'t started any learning activities yet' : 'Start learning topics to build your timeline'}
             </p>
           </div>
         )}

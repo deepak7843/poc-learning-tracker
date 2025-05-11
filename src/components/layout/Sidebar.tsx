@@ -3,7 +3,7 @@ import { Box, VStack, Link, Text, Divider, Icon, Flex } from '@chakra-ui/react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { LayoutDashboard, BookOpen, Clock, Users, FolderPlus, Settings } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Clock, Users, Settings } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -16,13 +16,11 @@ const Sidebar: React.FC = () => {
   ];
 
   const managerMenuItems = [
-    { name: 'Team Members', path: '/team', icon: Users },
-    { name: 'Assign Topics', path: '/assign', icon: FolderPlus },
+    { name: 'Reporting Employees', path: '/reporting-employees', icon: Users },
   ];
 
   const adminMenuItems = [
     { name: 'All Employees', path: '/employees', icon: Users },
-    { name: 'Manage Content', path: '/content', icon: FolderPlus },
     { name: 'Settings', path: '/settings', icon: Settings },
   ];
 
