@@ -4,7 +4,7 @@ export const mockUsers: User[] = [
   {
     id: 'user1',
     name: 'Deepak Shankar Dubey',
-    email: 'deepakshankardubey123@gmail.com',
+    email: 'deepak@example.com',
     role: 'user',
     avatarUrl: 'https://avatars.githubusercontent.com/u/97316457?v=4',
     department: 'Engineering',
@@ -15,7 +15,7 @@ export const mockUsers: User[] = [
     name: 'Varun Jain',
     email: 'varun@example.com',
     role: 'manager',
-    avatarUrl: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    avatarUrl: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg',
     department: 'Engineering',
   },
   {

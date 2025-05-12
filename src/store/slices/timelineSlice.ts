@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { TimelineEvent } from '../../types';
-import { mockTimelineEvents } from '../../mockData/timelineData';
+import { mockLearnings } from '../../mockData/learningsData';
+import { mockTopics } from '../../mockData/topicsData';
 
 interface TimelineState {
   events: TimelineEvent[];
@@ -20,26 +21,58 @@ const getIndianTime = () => {
   });
 };
 
-// Simulated API call
 export const fetchUserTimeline = createAsyncThunk(
   'timeline/fetchUserTimeline',
   async (userId: string, { rejectWithValue }) => {
     try {
-      // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 800));
-      return mockTimelineEvents.filter(event => event.userId === userId);
-    } catch (error) {
+      
+      const userLearnings = mockLearnings.filter(learning => learning.userId === userId);
+      
+      // Converting learnings to timeline events
+      const timelineEvents : TimelineEvent[] = [];
+
+      for (const learning of userLearnings) {
+        const events: TimelineEvent[] = [];
+        const topic = mockTopics.find(t => t.id === learning.topicId);
+      
+        if (learning.status === 'in_progress' && learning.progress >= 50) {
+          events.push({
+            id: `milestone-${learning.id}`,
+            userId: learning.userId,
+            topicId: learning.topicId,
+            eventType: 'milestone',
+            eventDate: learning.lastAccessed,
+            details: `Reached ${learning.progress}% completion in ${topic ? topic.title : 'topic'}`,
+          });
+        }
+      
+        if (learning.status === 'completed' && learning.completionDate) {
+          events.push({
+            id: `complete-${learning.id}`,
+            userId: learning.userId,
+            topicId: learning.topicId,
+            eventType: 'completed',
+            eventDate: learning.completionDate,
+            details: `Completed ${topic ? topic.title : 'topic'}` + (learning.notes ? ` - ${learning.notes}` : ''),
+          });
+        }
+      
+        timelineEvents.push(...events);
+      }
+      return timelineEvents.sort((a, b) => 
+        new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
+      );
+    } catch {
       return rejectWithValue('Failed to fetch timeline events');
     }
   }
 );
 
-// Add new timeline event
 export const addTimelineEvent = createAsyncThunk(
   'timeline/addTimelineEvent',
   async (event: Omit<TimelineEvent, 'id'>, { rejectWithValue }) => {
     try {
-      // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500));
       
       const newEvent: TimelineEvent = {
@@ -49,7 +82,7 @@ export const addTimelineEvent = createAsyncThunk(
       };
       
       return newEvent;
-    } catch (error) {
+    } catch {
       return rejectWithValue('Failed to add timeline event');
     }
   }
