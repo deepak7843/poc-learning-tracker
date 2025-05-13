@@ -13,6 +13,7 @@ import TopicsPage from './pages/TopicsPage';
 import TimelinePage from './pages/TimelinePage';
 import EmployeeTimelinePage from './pages/EmployeeTimelinePage';
 import ReportingEmployeesPage from './pages/ReportingEmployeesPage';
+import SignupPage from './pages/SignupPage';
 
 // Route Guard
 const ProtectedRoute: React.FC<{ children: React.ReactNode; roles?: string[] }> = ({ children, roles }) => {
@@ -44,7 +45,11 @@ function App() {
             <Route path="/login" element={
               isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />
             } />
-            
+
+            <Route path="/signup" element={
+              !isAuthenticated ? <SignupPage /> : <Navigate to="/login" replace />
+            } />
+
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <DashboardPage />

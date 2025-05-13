@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -13,19 +13,19 @@ import {
   InputRightElement,
   Flex,
   useToast,
+  Checkbox,
 } from '@chakra-ui/react';
 import { Eye, EyeOff, LogIn, BookOpen } from 'lucide-react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
-import { loginSuccess } from '../../store/slices/authSlice';
-import { mockUsers } from '../../mockData/userData';
+import useAuth from '../../hooks/useAuth';
 
 const LoginForm: React.FC = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = React.useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const email = useInput({
     validator: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
@@ -39,7 +39,7 @@ const LoginForm: React.FC = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email.isValid || !password.isValid) {
@@ -53,23 +53,21 @@ const LoginForm: React.FC = () => {
       return;
     }
 
-    const user = mockUsers.find((u) => u.email.toLowerCase() === email.value.toLowerCase());
+    const success = await login(email.value, password.value, rememberMe);
 
-    if (user) {
-      dispatch(loginSuccess(user));
-      navigate('/dashboard');
-      
+    if (success) {
       toast({
         title: 'Login successful',
-        description: `Welcome back, ${user.name}!`,
+        description: 'Welcome back!',
         status: 'success',
         duration: 3000,
         isClosable: true,
       });
+      navigate('/dashboard');
     } else {
       toast({
         title: 'Login failed',
-        description: 'Invalid email or password. Try with john@example.com.',
+        description: 'Invalid email or password.',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -91,10 +89,12 @@ const LoginForm: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <FormControl isInvalid={email.hasError}>
-          <FormLabel className="text-neutral-700">Email address</FormLabel>
+          <FormLabel htmlFor="login-email" className="text-neutral-700">Email address</FormLabel>
           <Input
+            id="login-email"
+            name="email"
             type="email"
-            placeholder="Your email"
+            placeholder="your.email@example.com"
             value={email.value}
             onChange={email.onChange}
             onBlur={email.onBlur}
@@ -108,9 +108,11 @@ const LoginForm: React.FC = () => {
         </FormControl>
 
         <FormControl isInvalid={password.hasError}>
-          <FormLabel className="text-neutral-700">Password</FormLabel>
+          <FormLabel htmlFor="login-password" className="text-neutral-700">Password</FormLabel>
           <InputGroup>
             <Input
+              id="login-password"
+              name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Your password"
               value={password.value}
@@ -134,6 +136,16 @@ const LoginForm: React.FC = () => {
           )}
         </FormControl>
 
+        <Checkbox
+          id="remember-me"
+          name="remember-me"
+          isChecked={rememberMe}
+          onChange={(e) => setRememberMe(e.target.checked)}
+          className="text-neutral-700"
+        >
+          Remember me
+        </Checkbox>
+
         <Button 
           type="submit"
           className="w-full mt-6 bg-primary-500 text-white py-3 rounded-md hover:bg-primary-600 transition-colors flex items-center justify-center space-x-2"
@@ -142,6 +154,12 @@ const LoginForm: React.FC = () => {
           <span>Sign In</span>
         </Button>
 
+        <Text className="text-sm text-neutral-600 text-center mt-4">
+          Don't have an account?{' '}
+          <Link to="/signup" className="text-primary-600 hover:text-primary-700 font-medium">
+            Sign up
+          </Link>
+        </Text>
       </form>
     </Box>
   );

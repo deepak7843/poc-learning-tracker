@@ -12,25 +12,25 @@ import {
   Text,
   Divider
 } from '@chakra-ui/react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { logout, updateUserRole } from '../../store/slices/authSlice';
 import { BookOpen, LogOut, Menu as MenuIcon, User, UserCheck, Shield } from 'lucide-react';
+import useAuth from '../../hooks/useAuth';
 
 interface NavbarProps {
   onMobileMenuToggle: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
-  const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
+  const { logout, updateRole } = useAuth();
 
   const handleLogout = () => {
-    dispatch(logout());
+    logout();
   };
 
   const handleRoleChange = (role: 'user' | 'manager' | 'admin') => {
-    dispatch(updateUserRole(role));
+    updateRole(role);
   };
 
   return (
@@ -47,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
           <div className="flex items-center space-x-2.5">
             <BookOpen className="w-6 h-6 text-white" />
             <Heading size="md" className="text-white font-semibold tracking-tight">
-              Learning Tracker
+              Learning Tracker POC
             </Heading>
           </div>
         </div>
