@@ -32,6 +32,24 @@ export const fetchTopics = createAsyncThunk(
   }
 );
 
+
+
+export const fetchLearnings=createAsyncThunk(
+  'learnings/fetchLearnings',
+
+  async(_, {rejectWithValue})=>{
+    try{
+await new Promise(resolve=> setTimeout(resolve, 400))
+return mockData;
+    }
+    catch{
+       return rejectWithValue('there is no Data')
+    }
+  }
+);
+
+
+
 const topicsSlice = createSlice({
   name: 'topics',
   initialState,
