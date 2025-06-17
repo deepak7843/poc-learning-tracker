@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
           </button>
           <div className="flex items-center space-x-2.5">
             <BookOpen className="w-6 h-6 text-white" />
-            <Heading size="md" className="text-white font-semibold tracking-tight">
+            <Heading size="md" className="text-white tracking-tight zf-font-prometo-md">
               Learning Tracker POC
             </Heading>
           </div>
@@ -60,7 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
               className="bg-white/10 hover:bg-white/20 text-white"
             >
               <div className="flex items-center space-x-1.5">
-                <Text className="capitalize">{user?.role}</Text>
+                <Text className="capitalize zf-font-prometo-light">{user?.role}</Text>
                 <MenuIcon className="w-4 h-4 opacity-70" />
               </div>
             </MenuButton>
@@ -71,7 +71,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
               >
                 <div className="flex items-center space-x-3">
                   <User className="w-4 h-4 text-gray-500" />
-                  <Text className="text-gray-700">User</Text>
+                  <Text className="text-gray-700 zf-font-prometo-light">User</Text>
                 </div>
               </MenuItem>
               <MenuItem
@@ -80,7 +80,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
               >
                 <div className="flex items-center space-x-3">
                   <UserCheck className="w-4 h-4 text-blue-500" />
-                  <Text className="text-blue-700">Manager</Text>
+                  <Text className="text-blue-700 zf-font-prometo-light">Manager</Text>
                 </div>
               </MenuItem>
               <MenuItem
@@ -89,7 +89,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
               >
                 <div className="flex items-center space-x-3">
                   <Shield className="w-4 h-4 text-purple-500" />
-                  <Text className="text-purple-700">Admin</Text>
+                  <Text className="text-purple-700 zf-font-prometo-light">Admin</Text>
                 </div>
               </MenuItem>
             </MenuList>
@@ -111,15 +111,15 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
             <MenuList className="mt-2">
               <Box className="px-4 py-3">
                 <div className="flex flex-col space-y-1">
-                  <Text className="font-semibold text-gray-900">{user?.name}</Text>
-                  <Text className="text-sm text-gray-500">{user?.email}</Text>
+                  <Text className="text-gray-900 zf-font-prometo-md">{user?.name}</Text>
+                  <Text className="text-sm text-gray-500 zf-font-prometo-light">{user?.email}</Text>
                 </div>
               </Box>
               <Divider />
               <MenuItem className="hover:bg-gray-50">
                 <div className="flex items-center space-x-3">
                   <User className="w-4 h-4 text-gray-500" />
-                  <Text className="text-gray-700">View Profile</Text>
+                  <Text className="text-gray-700 zf-font-prometo-light">View Profile</Text>
                 </div>
               </MenuItem>
               <MenuItem
@@ -128,7 +128,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
               >
                 <div className="flex items-center space-x-3">
                   <LogOut className="w-4 h-4 text-red-500" />
-                  <Text className="text-red-600">Sign Out</Text>
+                  <Text className="text-red-600 zf-font-prometo-light">Sign Out</Text>
                 </div>
               </MenuItem>
             </MenuList>

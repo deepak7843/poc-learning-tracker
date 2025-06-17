@@ -25,7 +25,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <ChevronLeft className="w-5 h-5" />
       </Button>
       
-      <Text className="px-4 py-2 text-sm font-medium text-gray-700">
+      <Text className="px-4 py-2 text-gray-700 zf-font-prometo-md">
         Page {currentPage} of {totalPages}
       </Text>
       

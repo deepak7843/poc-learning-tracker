@@ -54,8 +54,8 @@ const RecentActivity: React.FC = () => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm h-full">
-      <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
-      <p className="text-neutral-600 mb-6">
+      <h2 className="text-lg mb-4 zf-font-prometo-md">Recent Activity</h2>
+      <p className="text-neutral-600 mb-6 zf-font-prometo-light">
         Your latest learning activities and milestones
       </p>
 
@@ -78,7 +78,7 @@ const RecentActivity: React.FC = () => {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center p-6 bg-neutral-50 rounded-md h-[200px]">
-          <p className="text-neutral-600 text-center">
+          <p className="text-neutral-600 text-center zf-font-prometo-light">
             No recent activity to display
           </p>
         </div>

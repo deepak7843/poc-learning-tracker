@@ -53,8 +53,8 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-2">Dashboard</h1>
-      <p className="text-neutral-600 mb-6">
+      <h1 className="text-2xl mb-2 zf-font-prometo-md">Dashboard</h1>
+      <p className="text-neutral-600 mb-6 zf-font-prometo-light">
         Welcome back{user?.name ? `, ${user.name.split(' ')[0]}` : ''}! Here's your learning progress.
       </p>
 
@@ -69,15 +69,15 @@ const DashboardPage: React.FC = () => {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex justify-between items-center mb-4">
               <div>
-                <h2 className="text-lg font-semibold">In Progress</h2>
-                <p className="text-neutral-600 mt-1">
+                <h2 className="text-lg font-semibold zf-font-prometo-md">In Progress</h2>
+                <p className="text-neutral-600 mt-1 zf-font-prometo-light">
                   Continue where you left off
                 </p>
               </div>
               {inProgressTopics.length > 0 && (
                 <button
                   onClick={() => navigate('/topics')}
-                  className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                  className="text-sm text-primary-600 hover:text-primary-700 font-medium zf-font-prometo-md"
                 >
                   View All
                 </button>
@@ -101,31 +101,31 @@ const DashboardPage: React.FC = () => {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <span className={`px-2 py-1 rounded-md text-xs font-semibold ${
-                            topic.difficulty === 'beginner' ? 'bg-green-100 text-green-700' :
-                            topic.difficulty === 'intermediate' ? 'bg-blue-100 text-blue-700' :
-                            'bg-purple-100 text-purple-700'
+                            topic.difficulty === 'beginner' ? 'bg-green-100 text-green-700 zf-font-prometo-md' :
+                            topic.difficulty === 'intermediate' ? 'bg-blue-100 text-blue-700 zf-font-prometo-md' :
+                            'bg-purple-100 text-purple-700 zf-font-prometo-md'
                           }`}>
                             {topic.difficulty}
                           </span>
-                          <span className="text-xs text-neutral-600">
+                          <span className="text-xs text-neutral-600 zf-font-prometo-light">
                             {topic.estimatedHours} hours
                           </span>
                         </div>
                         
-                        <h3 className="font-semibold text-lg mb-1 truncate">
+                        <h3 className="font-semibold text-lg mb-1 truncate zf-font-prometo-md">
                           {topic.title}
                         </h3>
                         
-                        <p className="text-sm text-neutral-600 mb-3 line-clamp-2">
+                        <p className="text-sm text-neutral-600 mb-3 line-clamp-2 zf-font-prometo-light">
                           {topic.description}
                         </p>
                         
                         <div className="space-y-2">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="font-medium text-primary-600">
+                            <span className="font-medium text-primary-600 zf-font-prometo-md">
                               {topic.progress}% Complete
                             </span>
-                            <span className="text-neutral-600">
+                            <span className="text-neutral-600 zf-font-prometo-light">
                               {Math.round(topic.estimatedHours * (1 - topic.progress / 100))} hours remaining
                             </span>
                           </div>
@@ -143,12 +143,12 @@ const DashboardPage: React.FC = () => {
               </div>
             ) : (
               <div className="text-center py-8">
-                <p className="text-neutral-600">
+                <p className="text-neutral-600 zf-font-prometo-light">
                   You don't have any topics in progress.
                 </p>
                 <button
                   onClick={() => navigate('/topics')}
-                  className="mt-4 px-4 py-2 bg-primary-50 text-primary-600 rounded-lg text-sm font-medium hover:bg-primary-100 transition-colors"
+                  className="mt-4 px-4 py-2 bg-primary-50 text-primary-600 rounded-lg text-sm font-medium hover:bg-primary-100 transition-colors zf-font-prometo-md"
                 >
                   Browse Topics
                 </button>

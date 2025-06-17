@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
                 : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-800'}`}
           >
             <Icon as={item.icon} className="w-5 h-5 mr-3" />
-            <Text>{item.name}</Text>
+            <Text className="zf-font-prometo-light">{item.name}</Text>
           </Link>
         ))}
       </VStack>
@@ -53,7 +53,7 @@ const Sidebar: React.FC = () => {
       {additionalMenuItems.length > 0 && (
         <>
           <Divider className="my-4" />
-          <Text className="text-xs text-neutral-500 font-semibold uppercase px-4 mb-2">
+          <Text className="text-xs text-neutral-500 uppercase px-4 mb-2 zf-font-prometo-md">
             {user?.role === 'admin' ? 'Admin' : 'Management'}
           </Text>
           <VStack className="space-y-1">
@@ -68,7 +68,7 @@ const Sidebar: React.FC = () => {
                     : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-800'}`}
               >
                 <Icon as={item.icon} className="w-5 h-5 mr-3" />
-                <Text>{item.name}</Text>
+                <Text className="zf-font-prometo-light">{item.name}</Text>
               </Link>
             ))}
           </VStack>
@@ -76,7 +76,7 @@ const Sidebar: React.FC = () => {
       )}
 
       <Flex className="mt-8 p-4 justify-center">
-        <Text className="text-sm text-neutral-500">
+        <Text className="text-sm text-neutral-500 zf-font-prometo-light">
           Learning Tracker v1.0
         </Text>
       </Flex>

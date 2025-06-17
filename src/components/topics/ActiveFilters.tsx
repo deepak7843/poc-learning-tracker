@@ -28,7 +28,7 @@ const ActiveFilters: React.FC<ActiveFiltersProps> = ({
       <div className="flex items-center justify-between">
         <div className="flex gap-2 flex-wrap">
           {searchTerm && (
-            <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
+            <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800 zf-font-prometo-light">
               Search: {searchTerm}
               <Button
                 onClick={onClearSearch}
@@ -39,7 +39,7 @@ const ActiveFilters: React.FC<ActiveFiltersProps> = ({
             </Badge>
           )}
           {categoryFilter && (
-            <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+            <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800 zf-font-prometo-light">
               {categoryFilter}
               <Button
                 onClick={onClearCategory}
@@ -50,7 +50,7 @@ const ActiveFilters: React.FC<ActiveFiltersProps> = ({
             </Badge>
           )}
           {difficultyFilter && (
-            <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 text-purple-800">
+            <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 text-purple-800 zf-font-prometo-light">
               {difficultyFilter}
               <Button
                 onClick={onClearDifficulty}
@@ -63,7 +63,7 @@ const ActiveFilters: React.FC<ActiveFiltersProps> = ({
         </div>
         <Button
           onClick={onClearAll}
-          className="text-sm text-gray-600 hover:text-gray-900"
+          className="text-sm text-gray-600 hover:text-gray-900 zf-font-prometo-light"
         >
           Clear all
         </Button>

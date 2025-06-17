@@ -80,16 +80,16 @@ const LoginForm: React.FC = () => {
       <VStack className="space-y-6 items-center mb-8">
         <Flex className="items-center justify-center">
           <BookOpen className="w-8 h-8 text-primary-600" />
-          <Heading className="ml-2 text-2xl text-primary-700">Learning Tracker</Heading>
+          <Heading className="ml-2 text-2xl text-primary-700 zf-font-prometo-md">Learning Tracker</Heading>
         </Flex>
-        <Text className="text-neutral-600 text-center">
+        <Text className="text-neutral-600 text-center zf-font-prometo-light">
           Sign in to access your learning dashboard and track your progress.
         </Text>
       </VStack>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <FormControl isInvalid={email.hasError}>
-          <FormLabel htmlFor="login-email" className="text-neutral-700">Email address</FormLabel>
+          <FormLabel htmlFor="login-email" className="text-neutral-700 zf-font-prometo-md">Email address</FormLabel>
           <Input
             id="login-email"
             name="email"
@@ -98,17 +98,17 @@ const LoginForm: React.FC = () => {
             value={email.value}
             onChange={email.onChange}
             onBlur={email.onBlur}
-            className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+            className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:border-primary-500 focus:ring-1 focus:ring-primary-500 zf-font-prometo-light"
           />
           {email.hasError && (
-            <FormErrorMessage className="text-error-500 text-sm mt-1">
+            <FormErrorMessage className="text-error-500 text-sm mt-1 zf-font-prometo-light">
               Please enter a valid email address
             </FormErrorMessage>
           )}
         </FormControl>
 
         <FormControl isInvalid={password.hasError}>
-          <FormLabel htmlFor="login-password" className="text-neutral-700">Password</FormLabel>
+          <FormLabel htmlFor="login-password" className="text-neutral-700 zf-font-prometo-md">Password</FormLabel>
           <InputGroup>
             <Input
               id="login-password"
@@ -118,7 +118,7 @@ const LoginForm: React.FC = () => {
               value={password.value}
               onChange={password.onChange}
               onBlur={password.onBlur}
-              className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+              className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:border-primary-500 focus:ring-1 focus:ring-primary-500 zf-font-prometo-light"
             />
             <InputRightElement>
               <Button
@@ -130,7 +130,7 @@ const LoginForm: React.FC = () => {
             </InputRightElement>
           </InputGroup>
           {password.hasError && (
-            <FormErrorMessage className="text-error-500 text-sm mt-1">
+            <FormErrorMessage className="text-error-500 text-sm mt-1 zf-font-prometo-light">
               Password must be at least 6 characters
             </FormErrorMessage>
           )}
@@ -141,22 +141,22 @@ const LoginForm: React.FC = () => {
           name="remember-me"
           isChecked={rememberMe}
           onChange={(e) => setRememberMe(e.target.checked)}
-          className="text-neutral-700"
+          className="text-neutral-700 zf-font-prometo-light"
         >
           Remember me
         </Checkbox>
 
         <Button 
           type="submit"
-          className="w-full mt-6 bg-primary-500 text-white py-3 rounded-md hover:bg-primary-600 transition-colors flex items-center justify-center space-x-2"
+          className="w-full mt-6 bg-primary-500 text-white py-3 rounded-md hover:bg-primary-600 transition-colors flex items-center justify-center space-x-2 zf-font-prometo-md"
         >
           <LogIn className="w-5 h-5" />
           <span>Sign In</span>
         </Button>
 
-        <Text className="text-sm text-neutral-600 text-center mt-4">
+        <Text className="text-sm text-neutral-600 text-center mt-4 zf-font-prometo-light">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-primary-600 hover:text-primary-700 font-medium">
+          <Link to="/signup" className="text-primary-600 hover:text-primary-700 zf-font-prometo-md">
             Sign up
           </Link>
         </Text>

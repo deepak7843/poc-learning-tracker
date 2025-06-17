@@ -19,13 +19,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, onClear }) => {
           placeholder="Search topics by title, description or tags..."
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full pl-10 pr-10 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+          className="w-full pl-10 pr-10 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors zf-font-prometo-light"
         />
         {value && (
           <InputRightElement>
             <Button
               onClick={onClear}
-              className="p-1 hover:bg-gray-200 rounded-full transition-colors"
+              className="p-1 hover:bg-gray-200 rounded-full transition-colors zf-font-prometo-light"
             >
               <XCircle className="w-4 h-4 text-gray-500" />
             </Button>

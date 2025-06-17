@@ -31,13 +31,13 @@ const colorClasses = {
             <EventIcon className="w-5 h-5" />
           </div>
           <div className="flex-1">
-            <p className="font-medium">
+            <p className="zf-font-prometo-light">
               {eventTypeLabels[event.eventType] || 'Unknown event'}{' '}
-              <span className="font-semibold">{getTopicTitle(event.topicId)}</span>
+              <span className="zf-font-prometo-md">{getTopicTitle(event.topicId)}</span>
             </p>
             <div className="flex justify-between items-center mt-1">
-              <p className="text-sm text-neutral-600">{event.details}</p>
-              <span className="text-xs bg-neutral-100 text-neutral-600 px-2 py-1 rounded-full">
+              <p className="text-sm text-neutral-600 zf-font-prometo-light">{event.details}</p>
+              <span className="text-xs bg-neutral-100 text-neutral-600 px-2 py-1 rounded-full zf-font-prometo-light">
                 {formatDate(event.eventDate)}
               </span>
             </div>

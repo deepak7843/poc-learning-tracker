@@ -114,12 +114,12 @@ const TopicsList: React.FC = () => {
     <Box className="w-full max-w-7xl mx-auto">
       <Flex className="items-center justify-between mb-6">
         <Box>
-          <Heading className="text-2xl font-bold text-gray-900">Learning Topics</Heading>
-          <Text className="text-gray-600 mt-1">Browse and search through available learning topics</Text>
+          <Heading className="text-2xl text-gray-900 zf-font-prometo-md">Learning Topics</Heading>
+          <Text className="text-gray-600 mt-1 zf-font-prometo-light">Browse and search through available learning topics</Text>
         </Box>
         <Button
           onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm hover:bg-gray-50"
+          className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm hover:bg-gray-50 zf-font-prometo-md"
         >
           <Filter className="w-4 h-4" />
           <span>Filters</span>
@@ -177,10 +177,10 @@ const TopicsList: React.FC = () => {
       ) : (
         <Box className="text-center bg-white rounded-xl shadow-sm border border-gray-200 p-8">
           <Box className="max-w-md mx-auto">
-            <Heading as="h3" className="text-lg font-semibold text-gray-900 mb-2">
+            <Heading as="h3" className="text-lg text-gray-900 mb-2 zf-font-prometo-md">
               No topics found
             </Heading>
-            <Text className="text-gray-600 mb-6">
+            <Text className="text-gray-600 mb-6 zf-font-prometo-light">
               {searchTerm || categoryFilter || difficultyFilter
                 ? 'Try adjusting your search or filters'
                 : 'No learning topics are available yet'}
@@ -188,7 +188,7 @@ const TopicsList: React.FC = () => {
             {(searchTerm || categoryFilter || difficultyFilter) && (
               <Button
                 onClick={clearFilters}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 zf-font-prometo-md"
               >
                 Clear all filters
               </Button>

@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.zf-font-prometo-md {
+  font-family: Prometo-Medium, sans-serif;
+}
+
+.zf-font-prometo-light {
+  font-family: Prometo-Light, sans-serif;
+}
+
 :root {
   --primary-50: #E3F2FD;
   --primary-100: #BBDEFB;
@@ -15,6 +23,19 @@
   --primary-700: #1976D2;
   --primary-800: #1565C0;
   --primary-900: #0D47A1;
+
+  /* //zf theme */
+  --text-color-primary: #212529;
+  --text-color-secondary: #6c757d;
+  --primary-color: #1674bf;
+  --primary-color-text: #ffffff;
+  --font-family: Prometo-Medium, sans-serif;
+
+  --green-500: #10d924;
+  --orange-500: #ff7a00;
+  --red-500: #ff0000;
+  --yellow-200: #fdffaa3d;
+  /*  */
   
   --accent-50: #F3E5F5;
   --accent-100: #E1BEE7;
@@ -56,6 +77,10 @@ body {
   @apply bg-neutral-50 text-neutral-900;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: Prometo-Medium, sans-serif;
+}
+
 .card-hover {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -80,8 +105,13 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .slide-up {
@@ -89,6 +119,13 @@ body {
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

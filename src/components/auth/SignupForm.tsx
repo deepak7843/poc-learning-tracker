@@ -83,16 +83,16 @@ const SignupForm: React.FC = () => {
             <VStack className="space-y-6 items-center mb-8">
                 <Flex className="items-center justify-center">
                     <BookOpen className="w-8 h-8 text-primary-600" />
-                    <Heading className="ml-2 text-2xl text-primary-700">Learning Tracker</Heading>
+                    <Heading className="ml-2 text-2xl text-primary-700 zf-font-prometo-md">Learning Tracker</Heading>
                 </Flex>
-                <Text className="text-neutral-600 text-center">
+                <Text className="text-neutral-600 text-center zf-font-prometo-light">
                     Create your account to start tracking your learning journey.
                 </Text>
             </VStack>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <FormControl isInvalid={name.hasError}>
-                    <FormLabel className="text-neutral-700">Full Name</FormLabel>
+                    <FormLabel className="text-neutral-700 zf-font-prometo-md">Full Name</FormLabel>
                     <Input
                         type="text"
                         placeholder="Your Name"
@@ -109,7 +109,7 @@ const SignupForm: React.FC = () => {
                 </FormControl>
 
                 <FormControl isInvalid={email.hasError}>
-                    <FormLabel className="text-neutral-700">Email address</FormLabel>
+                    <FormLabel className="text-neutral-700 zf-font-prometo-md">Email address</FormLabel>
                     <Input
                         type="email"
                         placeholder="your.email@example.com"
@@ -126,7 +126,7 @@ const SignupForm: React.FC = () => {
                 </FormControl>
 
                 <FormControl isInvalid={password.hasError}>
-                    <FormLabel className="text-neutral-700">Password</FormLabel>
+                    <FormLabel className="text-neutral-700 zf-font-prometo-md">Password</FormLabel>
                     <InputGroup>
                         <Input
                             type={showPassword ? 'text' : 'password'}
@@ -154,7 +154,7 @@ const SignupForm: React.FC = () => {
 
                 <Button
                     type="submit"
-                    className="w-full mt-6 bg-primary-500 text-white py-3 rounded-md hover:bg-primary-600 transition-colors flex items-center justify-center space-x-2"
+                    className="w-full mt-6 bg-primary-500 text-white py-3 rounded-md hover:bg-primary-600 transition-colors flex items-center justify-center space-x-2 zf-font-prometo-md"
                 >
                     <UserPlus className="w-5 h-5" />
                     <span>Create Account</span>
@@ -162,7 +162,7 @@ const SignupForm: React.FC = () => {
 
                 <Text className="text-sm text-neutral-600 text-center mt-4">
                     Already have an account?{' '}
-                    <ChakraLink as={Link} to="/login" className="text-primary-600 hover:text-primary-700 font-medium">
+                    <ChakraLink as={Link} to="/login" className="text-primary-600 hover:text-primary-700 zf-font-prometo-md">
                         Sign in
                     </ChakraLink>
                 </Text>

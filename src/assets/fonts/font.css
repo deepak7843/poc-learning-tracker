@@ -1,0 +1,20 @@
+@font-face {
+  font-family: Prometo-Light;
+  font-style: normal;
+  src: url("./fonts/ZFPrometo_W_Lt.woff") format("truetype");
+}
+
+@font-face {
+  font-family: Prometo-Medium;
+  font-style: normal;
+  src: url("./fonts/ZFPrometo_W_Md.woff") format("truetype");
+}
+
+.zf-font-prometo-md {
+  font-family: Prometo-Medium, sans-serif;
+}
+
+.zf-font-prometo-light {
+  font-family: Prometo-Light, sans-serif;
+}
+

@@ -81,8 +81,8 @@ const TimelineFeed: React.FC<TimelineFeedProps> = ({ userId }) => {
     <div>
       {!userId && (
         <>
-          <h1 className="text-2xl font-bold mb-2">Learning Timeline</h1>
-          <p className="text-neutral-600 mb-6">
+          <h1 className="text-2xl mb-2 zf-font-prometo-md">Learning Timeline</h1>
+          <p className="text-neutral-600 mb-6 zf-font-prometo-light">
             Track your progress and learning milestones over time
           </p>
         </>
@@ -95,7 +95,7 @@ const TimelineFeed: React.FC<TimelineFeedProps> = ({ userId }) => {
               <div key={date}>
                 <div className="flex items-center mb-4">
                   <Calendar className="w-5 h-5 text-neutral-600 mr-2" />
-                  <p className="font-semibold text-neutral-800">{date}</p>
+                  <p className="text-neutral-800 zf-font-prometo-md">{date}</p>
                 </div>
                 
                 <div className="space-y-6">
@@ -117,29 +117,29 @@ const TimelineFeed: React.FC<TimelineFeedProps> = ({ userId }) => {
                         
                         <div className={`flex-1 ml-4 p-4 rounded-md border-l-4 ${colorClasses[colorType]} bg-${colorType}-50`}>
                           <div className="flex justify-between items-center mb-1">
-                            <p className="font-semibold">
+                            <p className="zf-font-prometo-md">
                               {event.eventType === 'started' 
                                 ? 'Started Learning' 
                                 : event.eventType === 'completed'
                                   ? 'Completed Course'
                                   : 'Learning Milestone'}
                             </p>
-                            <Badge className={`px-2 py-1 rounded-md text-xs font-medium ${colorClasses[colorType]}`}>
+                            <Badge className={`px-2 py-1 rounded-md text-xs zf-font-prometo-md ${colorClasses[colorType]}`}>
                               {event.eventType}
                             </Badge>
                           </div>
                           
-                          <p className="font-medium mb-2">
+                          <p className="mb-2 zf-font-prometo-md">
                             {getTopicTitle(event.topicId)}
                           </p>
                           
                           {event.details && (
-                            <p className="text-sm text-neutral-700 mb-2">
+                            <p className="text-sm text-neutral-700 mb-2 zf-font-prometo-light">
                               {event.details}
                             </p>
                           )}
                           
-                          <p className="text-xs text-neutral-500">
+                          <p className="text-xs text-neutral-500 zf-font-prometo-light">
                             {formatDate(event.eventDate)}
                           </p>
                         </div>
@@ -156,11 +156,11 @@ const TimelineFeed: React.FC<TimelineFeedProps> = ({ userId }) => {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center p-8 bg-neutral-50 rounded-md">
-            <p className="text-lg font-medium mb-2">
+            <p className="text-lg mb-2 zf-font-prometo-md">
               No timeline events yet
             </p>
             <p className="text-neutral-600 text-center">
-              {userId ? 'This employee hasn\'t started any learning activities yet' : 'Start learning topics to build your timeline'}
+              <span className="zf-font-prometo-light">{userId ? 'This employee hasn\'t started any learning activities yet' : 'Start learning topics to build your timeline'}</span>
             </p>
           </div>
         )}

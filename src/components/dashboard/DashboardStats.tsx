@@ -69,9 +69,9 @@ const DashboardStats: React.FC = () => {
           >
             <div className="flex justify-between items-center">
               <div>
-                <p className="text-neutral-600">{stat.label}</p>
-                <p className="text-3xl font-bold mt-1">{stat.value}</p>
-                <p className="text-sm text-neutral-500 mt-1">{stat.helpText}</p>
+                <p className="text-neutral-600 zf-font-prometo-light">{stat.label}</p>
+                <p className="text-3xl mt-1 zf-font-prometo-md">{stat.value}</p>
+                <p className="text-sm text-neutral-500 mt-1 zf-font-prometo-light">{stat.helpText}</p>
               </div>
               <div className={`w-12 h-12 rounded-full flex items-center justify-center ${colorClasses[stat.color]}`}>
                 <Icon className="w-6 h-6" />
