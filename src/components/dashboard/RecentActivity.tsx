@@ -5,8 +5,6 @@ import { RootState } from '../../store';
 import { TimelineEvent, Topic } from '../../types';
 import { RecentEventItem } from './RecentEventItem';
 
-
-
 const RecentActivity: React.FC = () => {
   const { events } = useSelector((state: RootState) => state.timeline);
   const { topics } = useSelector((state: RootState) => state.topics);

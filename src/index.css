@@ -20,14 +20,16 @@
   --primary-400: #42A5F5;
   --primary-500: #2196F3;
   --primary-600: #1E88E5;
-  --primary-700: #1976D2;
+  /* --primary-700: #1976D2; */
+  --primary-700: #1674bf;
   --primary-800: #1565C0;
   --primary-900: #0D47A1;
 
   /* //zf theme */
   --text-color-primary: #212529;
   --text-color-secondary: #6c757d;
-  --primary-color: #1674bf;
+  /* --primary-color: #1674bf; */
+    --primary-700: #1674bf;
   --primary-color-text: #ffffff;
   --font-family: Prometo-Medium, sans-serif;
 
