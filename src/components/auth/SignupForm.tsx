@@ -12,17 +12,16 @@ import {
     InputGroup,
     InputRightElement,
     Flex,
-    useToast,
     Link as ChakraLink,
 } from '@chakra-ui/react';
 import { Eye, EyeOff, UserPlus, BookOpen } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import useAuth from '../../hooks/useAuth';
+import { toastService } from '../../utils/toast';
 
 const SignupForm: React.FC = () => {
     const navigate = useNavigate();
-    const toast = useToast();
     const { signup } = useAuth();
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -46,35 +45,17 @@ const SignupForm: React.FC = () => {
         e.preventDefault();
 
         if (!name.isValid || !email.isValid || !password.isValid) {
-            toast({
-                title: 'Invalid input',
-                description: 'Please check your input fields.',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-            });
+            toastService.error('Please check your input fields.');
             return;
         }
 
         const success = await signup(name.value, email.value, password.value);
 
         if (success) {
-            toast({
-                title: 'Account created',
-                description: 'Welcome to Learning Tracker!',
-                status: 'success',
-                duration: 3000,
-                isClosable: true,
-            });
+            toastService.success('Welcome to Learning Tracker!');
             navigate('/dashboard');
         } else {
-            toast({
-                title: 'Signup failed',
-                description: 'Email already exists. Please try a different email.',
-                status: 'error',
-                duration: 5000,
-                isClosable: true,
-            });
+            toastService.error('Email already exists. Please try a different email.');
         }
     };
 

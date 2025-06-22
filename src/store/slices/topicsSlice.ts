@@ -39,8 +39,8 @@ export const fetchLearnings=createAsyncThunk(
 
   async(_, {rejectWithValue})=>{
     try{
-await new Promise(resolve=> setTimeout(resolve, 400))
-return mockData;
+      await new Promise(resolve=> setTimeout(resolve, 400))
+      return mockTopics;
     }
     catch{
        return rejectWithValue('there is no Data')

@@ -7,13 +7,16 @@ const ToastContainer = () => {
       position="top-right"
       autoClose={3000}
       hideProgressBar={false}
-      newestOnTop
-      closeOnClick
+      newestOnTop={true}
+      closeOnClick={true}
       rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
+      pauseOnFocusLoss={true}
+      draggable={true}
+      pauseOnHover={true}
       theme="light"
+      style={{
+        zIndex: 9999,
+      }}
     />
   );
 };

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { User } from '../types';
 import { mockUsers } from '../mockData/userData';
-import { loginSuccess, logout as logoutAction, updateUserRole } from '../store/slices/authSlice';
+import { loginSuccess, logout as logoutAction } from '../store/slices/authSlice';
 import {
   generateToken,
   generateRefreshToken,
@@ -20,7 +20,6 @@ interface AuthHook {
   login: (email: string, password: string, rememberMe?: boolean) => Promise<boolean>;
   signup: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
-  updateRole: (role: 'user' | 'manager' | 'admin') => void;
 }
 
 const useAuth = (): AuthHook => {
@@ -164,41 +163,12 @@ const useAuth = (): AuthHook => {
     return false;
   };
 
-  const updateRole = (role: 'user' | 'manager' | 'admin') => {
-    if (user) {
-      const updatedUser = { ...user, role };
-
-      const token = generateToken({
-        id: updatedUser.id,
-        email: updatedUser.email,
-        role: updatedUser.role,
-      });
-
-      const refreshToken = generateRefreshToken(updatedUser.id);
-      setTokens(token, refreshToken);
-
-      setUser(updatedUser);
-      dispatch(updateUserRole(role));
-
-      // Update user in localStorage
-      const storedUsers = localStorage.getItem('users');
-      if (storedUsers) {
-        const users = JSON.parse(storedUsers);
-        const updatedUsers = users.map((u: User) => 
-          u.id === updatedUser.id ? updatedUser : u
-        );
-        localStorage.setItem('users', JSON.stringify(updatedUsers));
-      }
-    }
-  };
-
   return {
     user,
     isAuthenticated,
     login,
     signup,
     logout: handleLogout,
-    updateRole,
   };
 };
 

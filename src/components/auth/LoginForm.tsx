@@ -12,17 +12,16 @@ import {
   InputGroup,
   InputRightElement,
   Flex,
-  useToast,
   Checkbox,
 } from '@chakra-ui/react';
 import { Eye, EyeOff, LogIn, BookOpen } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import useAuth from '../../hooks/useAuth';
+import { toastService } from '../../utils/toast';
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
-  const toast = useToast();
   const { login } = useAuth();
   const [showPassword, setShowPassword] = React.useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -43,35 +42,17 @@ const LoginForm: React.FC = () => {
     e.preventDefault();
 
     if (!email.isValid || !password.isValid) {
-      toast({
-        title: 'Invalid input',
-        description: 'Please check your email and password.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      toastService.error('Please check your email and password.');
       return;
     }
 
     const success = await login(email.value, password.value, rememberMe);
 
     if (success) {
-      toast({
-        title: 'Login successful',
-        description: 'Welcome back!',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
+      toastService.success('Welcome back!');
       navigate('/dashboard');
     } else {
-      toast({
-        title: 'Login failed',
-        description: 'Invalid email or password.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      toastService.error('Invalid email or password.');
     }
   };
 

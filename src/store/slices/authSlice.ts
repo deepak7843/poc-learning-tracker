@@ -45,16 +45,10 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       localStorage.removeItem('user');
-    },
-    updateUserRole(state, action: PayloadAction<'user' | 'manager' | 'admin'>) {
-      if (state.user) {
-        state.user.role = action.payload;
-        localStorage.setItem('user', JSON.stringify(state.user));
-      }
-    },
+    }
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout, updateUserRole } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout } = authSlice.actions;
 
 export default authSlice.reducer;
