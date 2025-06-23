@@ -36,7 +36,7 @@ const TopicsList: React.FC = () => {
 
   const categories = [...new Set(topics.map((topic) => topic.category))];
   
-  //attaching progress in all mock topicData from learningsData👇
+  //attaching progress in all mock topicData from learningsData
   const topicsWithProgress: TopicWithProgress[] = filteredTopics.map((topic) => {
     const learning = learnings.find((l) => l.topicId === topic.id);
     return {
