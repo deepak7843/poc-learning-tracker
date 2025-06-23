@@ -12,11 +12,7 @@ export const store = configureStore({
     topics: topicsReducer,
     learnings: learningsReducer,
     timeline: timelineReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

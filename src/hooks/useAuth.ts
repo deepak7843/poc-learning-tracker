@@ -125,7 +125,6 @@ const useAuth = (): AuthHook => {
     setUser(newUser);
     setIsAuthenticated(true);
     dispatch(loginSuccess(newUser));
-
     return true;
   };
 

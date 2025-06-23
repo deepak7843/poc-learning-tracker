@@ -25,7 +25,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, onClear }) => {
           <InputRightElement>
             <Button
               onClick={onClear}
-              className="p-1 hover:bg-gray-200 rounded-full transition-colors zf-font-prometo-light"
+              className="p-1 hover:bg-gray-200 rounded-full transition-colors"
             >
               <XCircle className="w-4 h-4 text-gray-500" />
             </Button>

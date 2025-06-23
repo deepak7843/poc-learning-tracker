@@ -47,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
           <div className="flex items-center space-x-2.5">
             <BookOpen className="w-6 h-6 text-white" />
             <Heading size="md" className="text-white tracking-tight zf-font-prometo-md">
-              Learning Tracker POC
+              Learning Tracker 
             </Heading>
           </div>
         </div>
