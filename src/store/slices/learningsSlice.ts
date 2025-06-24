@@ -90,11 +90,11 @@ const learningsSlice = createSlice({
       const totalProgress = state.learnings.reduce((sum, learning) => sum + learning.progress, 0);
       const averageProgress = Math.round(totalProgress / totalTopics);
 
-      // Calculate total hours spent based on each topic's estimated hours and progress
+      // total hours spent based on each topic's estimated hours and progress
       const totalHoursSpent = state.learnings.reduce((total, learning) => {
         const topic = mockTopics.find(t => t.id === learning.topicId);
         if (topic) {
-          // Calculate hours spent for this topic based on progress percentage
+          // hours spent for this topic based on progress percentage(progress is in %)
           const hoursForTopic = Math.round(topic.estimatedHours *(
             ( learning.progress)/100
         ));
@@ -127,7 +127,7 @@ const learningsSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-//// updateLearningProgress 👇👇👇👇
+//// updateLearningProgress 
       .addCase(updateLearningProgress.pending, (state) => {
         state.loading = true;
         state.error = null;
