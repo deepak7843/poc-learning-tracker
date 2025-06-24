@@ -58,6 +58,7 @@ export const fetchUserTimeline = createAsyncThunk(
           });
         }
       
+        //due to spread operator it will not create array of arrays
         timelineEvents.push(...events);
       }
       return timelineEvents.sort((a, b) => 
@@ -106,6 +107,8 @@ const timelineSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+
+      
       .addCase(addTimelineEvent.pending, (state) => {
         state.loading = true;
         state.error = null;

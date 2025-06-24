@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box, Heading, Text, Button, Flex } from '@chakra-ui/react';
 import { Filter } from 'lucide-react';
 import { useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ const TopicsList: React.FC = () => {
 
   const categories = [...new Set(topics.map((topic) => topic.category))];
   
-  //attaching progress in all mock topicData from learningsData👇
+  //attaching progress in all mock topicData from learningsData
   const topicsWithProgress: TopicWithProgress[] = filteredTopics.map((topic) => {
     const learning = learnings.find((l) => l.topicId === topic.id);
     return {
@@ -60,27 +60,27 @@ const TopicsList: React.FC = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
-  const handleSearchChange = (value: string) => {
+  const handleSearchChange = useCallback((value: string) => {
     dispatch(setSearchTerm(value));
     setCurrentPage(1);
-  };
+  }, [dispatch]);
 
-  const handleCategoryChange = (value: string) => {
+  const handleCategoryChange = useCallback((value: string) => {
     setCategoryFilter(value);
     setCurrentPage(1);
-  };
+  }, []);
 
-  const handleDifficultyChange = (value: string) => {
+  const handleDifficultyChange = useCallback((value: string) => {
     setDifficultyFilter(value);
     setCurrentPage(1);
-  };
-
-  const clearFilters = () => {
+  }, []);
+    
+  const clearFilters = useCallback( () => {
     setCategoryFilter('');
     setDifficultyFilter('');
     dispatch(clearSearch());
     setCurrentPage(1);
-  };
+  }, [dispatch]);
 
   const handleTopicSelect = (topicId: string) => {
     navigate(`/topics/${topicId}`);
