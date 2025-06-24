@@ -97,16 +97,18 @@ const AppRoutes: React.FC = () => {
       />
 
       {/* Fallback routes */}
+
       <Route
         path="/"
         element={
-          <Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />
+          isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />
         }
       />
+
       <Route
         path="*"
         element={
-          <Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />
+          isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />
         }
       />
     </Routes>

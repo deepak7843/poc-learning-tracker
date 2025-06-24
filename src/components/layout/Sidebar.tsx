@@ -22,7 +22,6 @@ const Sidebar: React.FC = () => {
   const adminMenuItems = [
     { name: 'All Employees', path: '/employees', icon: Users },
     { name: 'Upload Videos', path: '/videos/upload', icon: Video },
-    { name: 'Settings', path: '/settings', icon: Settings },
   ];
 
   const additionalMenuItems = 
