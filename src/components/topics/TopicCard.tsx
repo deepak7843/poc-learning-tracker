@@ -94,7 +94,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, onSelect }) => {
           
           <button
             onClick={() => onSelect(topic.id)}
-            className="w-full px-4 py-2 border border-primary-500 text-primary-500 rounded-md hover:bg-primary-50 transition-colors text-sm zf-font-prometo-md"
+            className="w-full px-4 py-2 border border-primary-500 text-primary-500 rounded-md hover:bg-primary-50 transition-colors zf-font-prometo-md"
           >
             {topic.status === 'not_started'
               ? 'Start Learning'

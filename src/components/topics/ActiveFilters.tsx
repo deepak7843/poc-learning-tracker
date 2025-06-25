@@ -29,7 +29,7 @@ const ActiveFilters: React.FC<ActiveFiltersProps> = ({
         <div className="flex gap-2 flex-wrap">
           {searchTerm && (
             <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800 zf-font-prometo-light">
-              Search: {searchTerm}
+              search: {searchTerm}
               <Button
                 onClick={onClearSearch}
                 className="ml-2 hover:text-blue-600"

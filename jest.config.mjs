@@ -37,15 +37,15 @@ export default {
     '!src/vite-env.d.ts',
     '!src/setupTests.ts',
   ],
-  // coverageDirectory: 'coverage',
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 80,
-  //     functions: 80,
-  //     lines: 80,
-  //     statements: 80,
-  //   },
-  // },
+  coverageDirectory: 'coverage',
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
   
   watchPlugins: [
     'jest-watch-typeahead/filename',
