@@ -18,6 +18,9 @@ const ReportingEmployeesPage = React.lazy(
 const AllEmployeesPage = React.lazy(
   () => import("../../pages/admin/AllEmployeesPage")
 );
+const VideoUpload = React.lazy(
+  () => import("../../components/admin/VideoUpload")
+);
 
 const AppRoutes: React.FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -92,6 +95,15 @@ const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute roles={["admin"]}>
             <AllEmployeesPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/videos/upload"
+        element={
+          <ProtectedRoute roles={["admin"]}>
+            <VideoUpload />
           </ProtectedRoute>
         }
       />
