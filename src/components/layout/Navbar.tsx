@@ -33,6 +33,9 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
     updateRole(role);
   };
 
+  console.log('Current__888env:', import.meta.env.MODE);
+console.log('App__888name:', import.meta.env.VITE_APP_NAME);
+
   return (
     <Box className="bg-primary-700 sticky top-0 z-40">
       <Flex className="justify-between items-center max-w-7xl mx-auto h-16 px-4 md:px-6">
@@ -47,7 +50,9 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
           <div className="flex items-center space-x-2.5">
             <BookOpen className="w-6 h-6 text-white" />
             <Heading size="md" className="text-white tracking-tight zf-font-prometo-md">
-              Learning Tracker 
+              {/* Learning Tracker */}
+              {import.meta.env.VITE_APP_NAME || 'Learning Tracker'}
+               {/* {env.app.env === 'production' ? 'Production' : env.app.env === 'staging' ? 'Staging' : env.app.env === 'qa' ? 'QA' : 'Development'} */}
             </Heading>
           </div>
         </div>
@@ -107,6 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMobileMenuToggle }) => {
                 size="sm"
                 className="rounded-lg"
               />
+              
             </MenuButton>
             <MenuList className="mt-2">
               <Box className="px-4 py-3">

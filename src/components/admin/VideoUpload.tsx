@@ -1,58 +1,67 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Heading, Text, Button, Table, Thead, Tbody, Tr, Th, Td, useToast } from '@chakra-ui/react';
+import { useToast, Box, Table, Thead, Tbody, Tr, Th, Td, Button, Heading } from '@chakra-ui/react';
 import { Download, Trash2 } from 'lucide-react';
 import { VideoFile } from '../../types/video';
 import { readVideos, addVideo, removeVideo, getVideoData } from '../../utils/videoUtils';
 import FileUpload from '../common/FileUpload';
 
-const VideoUpload: React.FC = () => {
+const VideoUpload: React.FC = (): JSX.Element => {
   const [uploadedVideos, setUploadedVideos] = useState<VideoFile[]>([]);
   const toast = useToast();
 
   useEffect(() => {
     const loadVideos = async () => {
-      const videos = await readVideos();
-      setUploadedVideos(videos);
+      try {
+        const videos = await readVideos();
+        setUploadedVideos(videos);
+      } catch (error) {
+        console.error('Error loading videos:', error);
+        toast({
+          title: 'Error loading videos',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
     };
     loadVideos();
-  }, []);
+  }, [toast]);
 
-  const handleUpload = async (files: File[]) => {
+  const handleUpload = useCallback(async (files: File[]) => {
     for (const file of files) {
       try {
-        // Create video metadata with only the required fields
         const videoMetadata = {
           name: file.name,
           size: file.size,
           mimeType: file.type,
         };
 
-        // Add video to storage
-        const newVideo = await addVideo(file, videoMetadata);
+        await addVideo(file, videoMetadata);
         
-        if (newVideo) {
-          setUploadedVideos(prev => [...prev, newVideo]);
-          toast({
-            title: 'Video uploaded successfully',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-          });
-        }
-      } catch (error) {
-        console.error('Upload error:', error);
+        const updatedVideos = await readVideos();
+        setUploadedVideos(updatedVideos);
+
         toast({
-          title: 'Upload failed',
-          description: 'There was an error uploading the video.',
+          title: 'Video uploaded successfully',
+          description: `${file.name} has been added.`,
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+
+      } catch (error) {
+        toast({
+          title: `Failed to upload ${file.name}`,
+          description: error instanceof Error ? error.message : 'An unexpected error occurred.',
           status: 'error',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
     }
-  };
+  }, [toast]);
 
-  const handleDelete = async (videoId: string) => {
+  const handleDelete = useCallback(async (videoId: string) => {
     try {
       await removeVideo(videoId);
       setUploadedVideos(prev => prev.filter(video => video.id !== videoId));
@@ -63,119 +72,102 @@ const VideoUpload: React.FC = () => {
         isClosable: true,
       });
     } catch (error) {
-      console.error('Error deleting video:', error);
       toast({
         title: 'Error deleting video',
-        description: 'Please try again',
         status: 'error',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
       });
     }
+  }, [toast]);
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   const handleDownload = useCallback(async (video: VideoFile) => {
     try {
-      // Get the video data from storage
-      const videoData = getVideoData(video.id);
+      const videoData = await getVideoData(video.id);
       if (!videoData) {
-        throw new Error('Video data not found');
+        toast({
+          title: 'Download failed',
+          description: 'Video data could not be retrieved.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+        return;
       }
       
-      // Create a temporary link and trigger download
-      const link = document.createElement('a');
-      link.href = videoData;
-      link.download = video.name || `video-${video.id}.mp4`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      toast({
-        title: 'Download started',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      });
+      const blob = new Blob([videoData], { type: video.mimeType });
+      const videoUrl = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = videoUrl;
+      a.download = video.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(videoUrl);
+
     } catch (error) {
-      console.error('Error downloading video:', error);
       toast({
         title: 'Error downloading video',
-        description: error instanceof Error ? error.message : 'Please try again',
+        description: error instanceof Error ? error.message : 'An unexpected error occurred.',
         status: 'error',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
       });
     }
   }, [toast]);
 
   return (
-    <Box className="p-6">
-      <Heading size="lg" className="mb-2">Upload Videos</Heading>
-      <Text className="text-neutral-600 mb-6">
-        Upload and manage training videos for employees
-      </Text>
-
-      <FileUpload
-        onUpload={handleUpload}
-        accept={{
-          'video/*': ['.mp4', '.webm', '.ogg']
-        }}
-        maxSize={500 * 1024 * 1024} // 500MB
-      />
-
-      {uploadedVideos.length > 0 && (
-        <>
-          <Box className="mt-8">
-            <Heading size="md" className="mb-4">Uploaded Videos</Heading>
-            <Box className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <Table>
-                <Thead>
-                  <Tr>
-                    <Th>Name</Th>
-                    <Th>Size</Th>
-                    <Th>Upload Date</Th>
-                    <Th>Type</Th>
-                    <Th>Actions</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {uploadedVideos.map((video) => (
-                    <Tr key={video.id}>
-                      <Td>{video.name}</Td>
-                      <Td>{(video.size / (1024 * 1024)).toFixed(2)} MB</Td>
-                      <Td>{video.uploadDate}</Td>
-                      <Td>{video.mimeType}</Td>
-                      <Td>
-                        <div className="flex space-x-2">
-                          <Button
-                            size="sm"
-                            leftIcon={<Download className="w-4 h-4" />}
-                            colorScheme="blue"
-                            variant="ghost"
-                            onClick={() => handleDownload(video)}
-                          >
-                            Download
-                          </Button>
-                          <Button
-                            size="sm"
-                            leftIcon={<Trash2 className="w-4 h-4" />}
-                            colorScheme="red"
-                            variant="ghost"
-                            onClick={() => handleDelete(video.id)}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      </Td>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </Box>
-          </Box>
-
-        </>
-      )}
+    <Box p={4}>
+      <Heading as="h2" size="lg" mb={4}>Video Upload</Heading>
+      <FileUpload onUpload={handleUpload} />
+      
+      <Heading as="h3" size="md" my={4}>Uploaded Videos</Heading>
+      <Table variant="simple">
+        <Thead>
+          <Tr>
+            <Th>Name</Th>
+            <Th>Size</Th>
+            <Th>Type</Th>
+            <Th>Actions</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {uploadedVideos.map((video) => (
+            <Tr key={video.id}>
+              <Td>{video.name}</Td>
+              <Td>{formatFileSize(video.size)}</Td>
+              <Td>{video.mimeType}</Td>
+              <Td>
+                <Button 
+                  size="sm" 
+                  leftIcon={<Download size={16} />}
+                  onClick={() => handleDownload(video)}
+                  mr={2}
+                >
+                  Download
+                </Button>
+                <Button 
+                  size="sm" 
+                  colorScheme="red" 
+                  leftIcon={<Trash2 size={16} />}
+                  onClick={() => handleDelete(video.id)}
+                >
+                  Delete
+                </Button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
     </Box>
   );
 };

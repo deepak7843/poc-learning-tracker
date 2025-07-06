@@ -109,7 +109,6 @@ const AppRoutes: React.FC = () => {
       />
 
       {/* Fallback routes */}
-
       <Route
         path="/"
         element={

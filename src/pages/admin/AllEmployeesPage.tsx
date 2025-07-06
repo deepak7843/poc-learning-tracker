@@ -13,68 +13,105 @@ import {
   Badge,
   Input,
   Select,
+  Spinner,
+  Center,
 } from '@chakra-ui/react';
 import { Search } from 'lucide-react';
-import { mockUsers } from '../../mockData/userData';
 import { User } from '../../types';
 
+const MOCK_API_URL = 'https://62b2d6364f851f87f44ddc8b.mockapi.io/users';
+
 const AllEmployeesPage: React.FC = () => {
-  const [employees, setEmployees] = useState<User[]>([]);
+  const [allEmployees, setAllEmployees] = useState<User[]>([]);
+  const [displayedEmployees, setDisplayedEmployees] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [departmentFilter, setDepartmentFilter] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API call
     const fetchEmployees = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setEmployees(mockUsers);
+      setIsLoading(true);
+      try {
+        const response = await fetch(MOCK_API_URL);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data from mock API');
+        }
+        const data: User[] = await response.json();
+        setAllEmployees(data);
+      } catch (error) {
+        console.error('API Error:', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchEmployees();
   }, []);
 
-  const filteredEmployees = employees.filter(employee => {
+  // Streaming the fetched data on ui
+  useEffect(() => {
+    if (allEmployees.length === 0) return;
+
+    setDisplayedEmployees([]); // Clearing previous list before streaming new one
+    const interval = setInterval(() => {
+      setDisplayedEmployees(prev => {
+        if (prev.length < allEmployees.length) {
+          return [...prev, allEmployees[prev.length]];
+        }
+        clearInterval(interval);
+        return prev;
+      });
+    }, 300);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [allEmployees]);
+
+  const filteredEmployees = displayedEmployees.filter(employee => {
     const matchesSearch = employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         employee.email.toLowerCase().includes(searchTerm.toLowerCase());
+                         (employee.email && employee.email.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesDepartment = !departmentFilter || employee.department === departmentFilter;
     return matchesSearch && matchesDepartment;
   });
 
-  const departments = Array.from(new Set(employees.map(e => e.department)));
+  const departments = Array.from(new Set(allEmployees.map(e => e.department).filter(Boolean)));
 
   return (
     <Box className="p-6">
-      <Heading size="lg" className="mb-2">All Employees</Heading>
-      <Text className="text-neutral-600 mb-6">
+      <Heading as="h1" size="xl" mb={2}>
+        All Employees
+      </Heading>
+      <Text mb={6} color="gray.500">
         Manage and view all employees in the organization
       </Text>
 
-      <Box className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <Box className="p-4 border-b border-neutral-200">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
-              <Input
-                placeholder="Search employees..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            <Select
-              placeholder="All Departments"
-              value={departmentFilter}
-              onChange={(e) => setDepartmentFilter(e.target.value)}
-              className="w-full md:w-48"
-            >
-              {departments.map(dept => (
-                <option key={dept} value={dept}>{dept}</option>
-              ))}
-            </Select>
-          </div>
+      <Box display="flex" mb={6} gap={4}>
+        <Box flex={1} position="relative">
+          <Input
+            placeholder="Search by name or email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            pl={10}
+          />
+          <Box as={Search} size={20} color="gray.400" position="absolute" left={3} top="50%" transform="translateY(-50%)" />
         </Box>
+        <Select
+          value={departmentFilter}
+          onChange={(e) => setDepartmentFilter(e.target.value)}
+          maxW="200px"
+        >
+          <option value="">All Departments</option>
+          {departments.map(dept => (
+            <option key={dept} value={dept}>{dept}</option>
+          ))}
+        </Select>
+      </Box>
 
-        <div className="overflow-x-auto">
-          <Table>
+      <Box position="relative" minH="400px">
+        {isLoading ? (
+          <Center h="100%">
+            <Spinner size="xl" />
+          </Center>
+        ) : (
+          <Table variant="simple">
             <Thead>
               <Tr>
                 <Th>Employee</Th>
@@ -84,38 +121,27 @@ const AllEmployeesPage: React.FC = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {filteredEmployees.map(employee => (
+              {filteredEmployees.map((employee) => (
                 <Tr key={employee.id}>
                   <Td>
-                    <div className="flex items-center space-x-3">
-                      <Avatar
-                        size="md"
-                        name={employee.name}
-                        src={employee.avatarUrl}
-                        className="rounded-lg"
-                      />
-                      <div>
-                        <Text className="font-medium">{employee.name}</Text>
-                        <Text className="text-sm text-neutral-600">{employee.email}</Text>
-                      </div>
-                    </div>
+                    <Box display="flex" alignItems="center">
+                      <Avatar size="sm" name={employee.name} src={employee.avatarUrl} mr={3} />
+                      <Box>
+                        <Text fontWeight="bold">{employee.name}</Text>
+                        <Text fontSize="sm" color="gray.500">{employee.email}</Text>
+                      </Box>
+                    </Box>
                   </Td>
                   <Td>{employee.department}</Td>
                   <Td>
-                    <Badge
-                      className={`capitalize ${
-                        employee.role === 'admin' ? 'bg-purple-100 text-purple-800' :
-                        employee.role === 'manager' ? 'bg-blue-100 text-blue-800' :
-                        'bg-green-100 text-green-800'
-                      }`}
-                    >
-                      {employee.role}
+                    <Badge colorScheme={employee.role === 'manager' ? 'blue' : 'green'}>
+                      {employee.role?.toUpperCase() || 'N/A'}
                     </Badge>
                   </Td>
                   <Td>
                     {employee.managerId ? (
                       <Text>
-                        {mockUsers.find(u => u.id === employee.managerId)?.name || 'Unknown'}
+                        {allEmployees.find(u => u.id === employee.managerId)?.name || 'Unknown'}
                       </Text>
                     ) : (
                       <Text className="text-neutral-500">-</Text>
@@ -125,7 +151,7 @@ const AllEmployeesPage: React.FC = () => {
               ))}
             </Tbody>
           </Table>
-        </div>
+        )}
       </Box>
     </Box>
   );

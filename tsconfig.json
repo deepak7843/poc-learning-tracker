@@ -15,7 +15,7 @@
     "jsx": "react-jsx",
 
     /* Type checking */
-    "types": ["vite/client", "node", "jest"],
+    "types": ["vite/client", "node",   "vitest/globals", "@testing-library/jest-dom"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
 
@@ -26,8 +26,9 @@
     "noFallthroughCasesInSwitch": true,
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["src"],
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src", "vitest.setup.ts"],
+  // "references": [
+  //   { "path": "./tsconfig.node.json" },
+  //   { "path": "./tsconfig.test.json" }
+  // ]
 }

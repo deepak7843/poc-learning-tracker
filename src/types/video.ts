@@ -14,8 +14,8 @@ export interface VideoMetadata {
   name: string;
   size: number;
   uploadDate?: string;
+  url?: string;
   mimeType: string;
   duration?: number;
   thumbnail?: string;
-  url?: string;
 }
