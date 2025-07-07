@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useToast, Box, Table, Thead, Tbody, Tr, Th, Td, Button, Heading } from '@chakra-ui/react';
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Button, Heading } from '@chakra-ui/react';
+import { useToast } from '../../utils/chakraToast';
 import { Download, Trash2 } from 'lucide-react';
 import { VideoFile } from '../../types/video';
 import { readVideos, addVideo, removeVideo, getVideoData } from '../../utils/videoUtils';
@@ -16,12 +17,7 @@ const VideoUpload: React.FC = (): JSX.Element => {
         setUploadedVideos(videos);
       } catch (error) {
         console.error('Error loading videos:', error);
-        toast({
-          title: 'Error loading videos',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        });
+        toast.error('Failed to load videos');
       }
     };
     loadVideos();
@@ -41,22 +37,10 @@ const VideoUpload: React.FC = (): JSX.Element => {
         const updatedVideos = await readVideos();
         setUploadedVideos(updatedVideos);
 
-        toast({
-          title: 'Video uploaded successfully',
-          description: `${file.name} has been added.`,
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-        });
+        toast.success(`Video uploaded successfully: ${file.name}`);
 
       } catch (error) {
-        toast({
-          title: `Failed to upload ${file.name}`,
-          description: error instanceof Error ? error.message : 'An unexpected error occurred.',
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
-        });
+        toast.error(`Failed to upload ${file.name}: ${error instanceof Error ? error.message : 'An unexpected error occurred.'}`);
       }
     }
   }, [toast]);
@@ -65,19 +49,9 @@ const VideoUpload: React.FC = (): JSX.Element => {
     try {
       await removeVideo(videoId);
       setUploadedVideos(prev => prev.filter(video => video.id !== videoId));
-      toast({
-        title: 'Video deleted',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
+      toast.success('Video deleted');
     } catch (error) {
-      toast({
-        title: 'Error deleting video',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-      });
+      toast.error('Failed to delete video');
     }
   }, [toast]);
 
@@ -93,12 +67,9 @@ const VideoUpload: React.FC = (): JSX.Element => {
     try {
       const videoData = await getVideoData(video.id);
       if (!videoData) {
-        toast({
-          title: 'Download failed',
+        toast.error('Download failed', {
           description: 'Video data could not be retrieved.',
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
+          duration: 2000
         });
         return;
       }
@@ -115,12 +86,9 @@ const VideoUpload: React.FC = (): JSX.Element => {
       URL.revokeObjectURL(videoUrl);
 
     } catch (error) {
-      toast({
-        title: 'Error downloading video',
+      toast.error('Error downloading video', {
         description: error instanceof Error ? error.message : 'An unexpected error occurred.',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
+        duration: 2000
       });
     }
   }, [toast]);
